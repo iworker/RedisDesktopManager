@@ -102,13 +102,13 @@ void TreeOperations::loadNamespaceItems(QSharedPointer<ConnectionsTree::Abstract
 
     try {        
         if (m_connection->mode() == RedisClient::Connection::Mode::Cluster) {
-            m_connection->getClusterKeys(renderingCallback, keyPattern);
+            m_connection->getClusterKeys(renderingCallback, "*");
         } else {
             if (static_cast<ServerConfig>(m_connection->getConfig()).luaKeysLoading()) {
                 m_connection->getNamespaceItems(thinRenderingCallback, getNamespaceSeparator(),
                                                 filter, parent->getDbIndex());
             } else {
-                m_connection->getDatabaseKeys(renderingCallback, keyPattern, parent->getDbIndex());
+                m_connection->getDatabaseKeys(renderingCallback, "*", parent->getDbIndex());
             }
         }        
 
